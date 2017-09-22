@@ -27,5 +27,15 @@ module JwtAuthApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.autoload_paths << Rails.root.join('lib')
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          :headers => :any,
+          :methods => [:get, :put, :patch, :options],
+          :max_age => 15
+      end
+    end
   end
 end
